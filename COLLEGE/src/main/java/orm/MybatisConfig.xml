@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<settings>
+	<setting name="mapUnderscoreToCamelCase" value="true"/>
+</settings>
+<typeAliases>
+	<typeAlias type="domain.CommunityVO" alias="cvo"/>
+	<typeAlias type="domain.CourseVO" alias="csvo"/>
+	<typeAlias type="domain.ReplyVO" alias="rpvo"/>
+	<typeAlias type="domain.ReviewVO" alias="rvvo"/>
+	<typeAlias type="domain.SubjectVO" alias="svo"/>
+	<typeAlias type="domain.UserVO" alias="uvo"/>
+</typeAliases>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost/codingmans875?autoReconnect=true"/>
+        <property name="username" value="codingmans875"/>
+        <property name="password" value="wlsh486901"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="mapper/CommunityMapper.xml"/>
+    <mapper resource="mapper/CourseMapper.xml"/>
+    <mapper resource="mapper/ReplyMapper.xml"/>
+    <mapper resource="mapper/ReviewMapper.xml"/>
+    <mapper resource="mapper/SubjectMapper.xml"/>
+    <mapper resource="mapper/UserMapper.xml"/>
+  </mappers>
+</configuration>

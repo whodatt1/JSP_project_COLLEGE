@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SubjectMapper">
+	<select id="list" resultType="svo">
+		select sno, title, id, writer, major, description, image_file, class_limit,
+		attends, start_at, end_at, mod_at from subject order by sno
+		desc
+	</select>
+	<insert id="reg" parameterType="svo">
+		insert into subject (title, id, writer, major, description, image_file, class_limit, start_at, end_at)
+		values (#{title}, #{id}, #{writer}, #{major}, #{description}, #{imageFile}, #{classLimit}, #{startAt}, #{endAt})
+	</insert>
+	<select id="detail" parameterType="long" resultType="svo">
+		select * from subject
+		where sno = #{sno}
+	</select>
+	<delete id="del" parameterType="long">
+		delete from subject
+		where sno = #{sno}
+	</delete>
+	<update id="mod" parameterType="svo">
+		update subject set
+		title = #{title},
+		major = #{major},
+		description = #{description},
+		image_file = #{imageFile},
+		class_limit = #{classLimit},
+		start_at = #{startAt},
+		end_at = #{endAt},
+		mod_at = now()
+		where sno = #{sno}
+	</update>
+	<update id="pAt" parameterType="svo">
+		update subject set
+		attends = attends + #{attends}
+		where sno = #{sno}
+	</update>
+	<update id="mAt" parameterType="svo">
+		update subject set
+		attends = attends - #{attends}
+		where sno = #{sno}
+	</update>
+	<select id="listCs" parameterType="long" resultType="svo">
+		select email as id
+		from subject s
+		inner join course c
+		on s.sno = c.sno
+		where c.sno = ${sno};
+	</select>
+</mapper>

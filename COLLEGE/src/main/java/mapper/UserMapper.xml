@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">
+	<insert id="reg" parameterType="uvo">
+		insert into user (email, pwd, user_name, grade, major)
+		values (#{email}, #{pwd}, #{userName}, #{grade}, #{major})
+	</insert>
+	<select id="login" parameterType="uvo" resultType="uvo">
+		select email, user_name, last_login, grade, major
+		from user
+		where email = #{email} and pwd = #{pwd}
+	</select>
+	<select id="list" resultType="uvo">
+		select email, user_name, reg_at, last_login, grade, major
+		from user
+	</select>
+	<update id="lastLogin" parameterType="string">
+		update user set
+		last_login = now()
+		where email = #{email}
+	</update>
+	<select id="detail" parameterType="string" resultType="uvo">
+		select email, pwd, user_name, reg_at, last_login, grade, major
+		from user where email = #{email}
+	</select>
+	<delete id="del" parameterType="string">
+		delete from user
+		where email = #{email}
+	</delete>
+	<update id="mod" parameterType="uvo">
+		update user set 
+		pwd = #{pwd},
+		user_name = #{userName},
+		major = #{major}
+		where email = #{email}
+	</update>
+	<update id="mod2" parameterType="uvo">
+		update user set 
+		grade = #{grade}
+		where email = #{email}
+	</update>
+	<select id="listEmail" resultType="string">
+		select email
+		from user
+	</select>
+	<select id="mathPwd" parameterType="string" resultType="string">
+		select pwd
+		from user
+		where email = #{email}
+	</select>
+</mapper>

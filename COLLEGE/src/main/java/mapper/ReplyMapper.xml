@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReplyMapper">
+	<insert id="reg" parameterType="rpvo">
+		insert into reply (cno, id, replier, content)
+		values (#{cno}, #{id}, #{replier}, #{content})
+	</insert>
+	<select id="list" parameterType="long" resultType="rpvo">
+		select rpno, cno, id, replier, content, mod_at
+		from reply where cno = #{cno}
+	</select>
+	<delete id="del" parameterType="long">
+		delete from reply
+		where rpno = #{rpno}
+	</delete>
+	<update id="mod" parameterType="rpvo">
+		update reply set
+		content = #{content}
+		where rpno = #{rpno}
+	</update>
+	<delete id="delAll" parameterType="long">
+		delete from reply
+		where cno = #{cno}
+	</delete>
+</mapper>

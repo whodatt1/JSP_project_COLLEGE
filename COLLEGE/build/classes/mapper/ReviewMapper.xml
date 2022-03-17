@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReviewMapper">
+	<insert id="reg" parameterType="rvvo">
+		insert into review (sno, title, id, writer, score, content)
+		values (#{sno}, #{title}, #{id}, #{writer}, #{score}, #{content})
+	</insert>
+	<update id="mod" parameterType="rvvo">
+		update review set
+		title = #{title},
+		score = #{score},
+		content = #{content},
+		mod_at = now()
+		where rvno = #{rvno}
+	</update>
+	<select id="list" parameterType="long" resultType="rvvo" >
+		select rvno, sno, title, id, writer, score, content, mod_at
+		from review
+	</select>
+	<delete id="del" parameterType="long">
+		delete from review
+		where rvno = #{rvno}
+	</delete>
+	<delete id="delAll" parameterType="long">
+		delete from review
+		where sno = #{sno}	
+	</delete>
+</mapper>

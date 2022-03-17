@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CourseMapper">
+	<select id="listStu" parameterType="string" resultType="csvo">
+		select csno, sno, email, course_name, professor_id, professor_name, course_major, start_at, end_at
+		from course where email = #{email}
+	</select>
+	<select id="listPro" parameterType="string" resultType="csvo">
+		select csno, sno, email, user_name, course_name, course_major, start_at, end_at
+		from course where professor_id = #{professorId}
+	</select>
+	<insert id="reg" parameterType="csvo">
+		insert into course (sno, email, user_name, course_name, professor_id, professor_name, course_major, start_at, end_at)
+		values (#{sno}, #{email}, #{userName}, #{courseName}, #{professorId}, #{professorName}, #{courseMajor}, #{startAt}, #{endAt})
+	</insert>
+	<delete id="del" parameterType="long">
+		delete from course
+		where csno = #{csno}
+	</delete>
+	<select id="detail" parameterType="csvo" resultType="csvo">
+		select csno, sno, email
+		from course
+		where sno = #{sno} and email = #{email}
+	</select>
+	<delete id="delAll" parameterType="long">
+		delete from course
+		where sno = ${sno}
+	</delete>
+</mapper>

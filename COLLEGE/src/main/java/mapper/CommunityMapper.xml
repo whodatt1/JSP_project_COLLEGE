@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommunityMapper">
+	<select id="list" resultType="cvo">
+		select cno, id, writer, title, mod_at, read_count, image_file
+		from community
+	</select>
+	<insert id="reg" parameterType="cvo">
+		insert into community (id, writer, title, content, image_file)
+		values (#{id}, #{writer}, #{title}, #{content}, #{imageFile})
+	</insert>
+	<select id="detail" parameterType="long" resultType="cvo">
+		select cno, id, writer, title, content, mod_at, read_count, image_file from community where cno = #{cno}
+	</select>
+	<update id="rc" parameterType="long">
+		update community set
+		read_count = read_count + 1
+		where cno = #{cno}
+	</update>
+	<delete id="del" parameterType="long">
+		delete from community
+		where cno = #{cno}
+	</delete>
+	<update id="mod" parameterType="cvo">
+		update community set
+		title = #{title},
+		content = #{content},
+		image_file = #{imageFile},
+		read_count = read_count - 2
+		where cno = #{cno}
+	</update>
+</mapper>
